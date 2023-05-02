@@ -51,6 +51,7 @@ with col1:
       score = tf.nn.softmax(predictions[0])
 
 with col2: 
+  if len(pred_label) > 1: 
     st.write(pred_label)
     st.write("This image most likely belongs to {} with a {:.2f} percent confidence.".format(pred_label, 100 * np.max(score)))
 
