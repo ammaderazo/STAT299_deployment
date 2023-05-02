@@ -13,19 +13,19 @@ st.image(headerIMG)
 
 
 @st.cache_resource(show_spinner=True)
-
+class_labels = ['CSI','NonCSI']
 def load_model():
   model=tf.keras.models.load_model('VGG19.h5')
   return model
 
-model = load_model()
+model = tf.keras.models.load_model('VGG19.h5')
 
 
-file = st.file_uploader("Upload an image of the specimen", type=["jpg", "png"])
+file = st.file_uploader("", type=["jpg", "png", "jpeg"])
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
-class_labels = ['CSI','NonCSI']
+
 
 def import_and_predict(image_data, model):
     
