@@ -24,28 +24,33 @@ model = tf.keras.models.load_model('VGG19.h5')
 
 file = st.file_uploader("", type=["jpg", "png", "jpeg"])
 
-st.set_option('deprecation.showfileUploaderEncoding', False)
+col1, col2 = st.columns(2)
+
+with col1: 
+  st.set_option('deprecation.showfileUploaderEncoding', False)
 
 
-class_labels = ['CSI','NonCSI']
-def import_and_predict(image_data, model):
-    
-        size = (300,300)    
-        image = ImageOps.fit(image_data, size, Image.ANTIALIAS)
-        image = np.asarray(image)
-        img_reshape = image[np.newaxis,...]
-        prediction = model.predict(img_reshape)
-        return prediction
+  class_labels = ['CSI','NonCSI']
+  def import_and_predict(image_data, model):
+      
+          size = (300,300)    
+          image = ImageOps.fit(image_data, size, Image.ANTIALIAS)
+          image = np.asarray(image)
+          img_reshape = image[np.newaxis,...]
+          prediction = model.predict(img_reshape)
+          return prediction
 
 
-if file is None:
-    st.text("Please upload an image file")
-else:
-    image = Image.open(file)
-    st.image(image,caption= "Image Uploaded", width = 400)
-    predictions = import_and_predict(image, model)
-    pred_label = class_labels[np.argmax(predictions[0])]
-    score = tf.nn.softmax(predictions[0])
+  if file is None:
+      st.text("Please upload an image file")
+  else:
+      image = Image.open(file)
+      st.image(image,caption= "Image Uploaded", width = 400)
+      predictions = import_and_predict(image, model)
+      pred_label = class_labels[np.argmax(predictions[0])]
+      score = tf.nn.softmax(predictions[0])
+
+with col2: 
     st.write(pred_label)
     st.write("This image most likely belongs to {} with a {:.2f} percent confidence.".format(pred_label, 100 * np.max(score)))
 
