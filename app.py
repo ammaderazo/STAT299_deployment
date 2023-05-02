@@ -13,7 +13,8 @@ st.image(headerIMG)
 
 
 @st.cache_resource(show_spinner=True)
-class_labels = ['CSI','NonCSI']
+
+
 def load_model():
   model=tf.keras.models.load_model('VGG19.h5')
   return model
@@ -26,7 +27,7 @@ file = st.file_uploader("", type=["jpg", "png", "jpeg"])
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
 
-
+class_labels = ['CSI','NonCSI']
 def import_and_predict(image_data, model):
     
         size = (300,300)    
