@@ -46,12 +46,13 @@ with col1:
   else:
       image = Image.open(file)
       st.image(image,caption= "Image Uploaded", width = 400)
-      predictions = import_and_predict(image, model)
-      pred_label = class_labels[np.argmax(predictions[0])]
-      score = tf.nn.softmax(predictions[0])
+     
 
 with col2: 
-  if len(pred_label) > 1: 
+  if file is not None:
+    predictions = import_and_predict(image, model)
+    pred_label = class_labels[np.argmax(predictions[0])]
+    score = tf.nn.softmax(predictions[0])
     st.write(pred_label)
     st.write("This image most likely belongs to {} with a {:.2f} percent confidence.".format(pred_label, 100 * np.max(score)))
 
